@@ -73,7 +73,7 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
     VALUES(?,?,?)
   ";
 
-  return execute_query($db, $sql, [$user_id,$item_id,$amount]);
+  return execute_query($db, $sql, [$item_id,$user_id,$amount]);
 }
 
 function update_cart_amount($db, $cart_id, $amount){
