@@ -82,10 +82,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES(?,?,?,?,?);
+    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
   ";
 
-  return execute_query($db, $sql, [$name,$price,$stock,$filename,$status_value]);
+  return execute_query($db, $sql);
 }
 
 function update_item_status($db, $item_id, $status){

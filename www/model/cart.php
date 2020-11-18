@@ -70,10 +70,10 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
         user_id,
         amount
       )
-    VALUES(?,?,?)
+    VALUES({$item_id}, {$user_id}, {$amount})
   ";
 
-  return execute_query($db, $sql, [$item_id,$user_id,$amount]);
+  return execute_query($db, $sql);
 }
 
 function update_cart_amount($db, $cart_id, $amount){
