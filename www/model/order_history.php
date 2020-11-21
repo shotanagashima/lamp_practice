@@ -15,3 +15,6 @@ function insert_order_history($db, $user_id, $total_price) {
     $parameters = [$user_id, $total_price];
     return execute_query($db, $sql, $parameters);
 }
+function get_order_id($db) {
+  return $db->lastInsertId();
+}

@@ -5,6 +5,7 @@ require_once MODEL_PATH . 'user.php';
 require_once MODEL_PATH . 'item.php';
 require_once MODEL_PATH . 'cart.php';
 require_once MODEL_PATH . 'order_history.php';
+require_once MODEL_PATH . 'order_detail.php';
 
 session_start();
 
