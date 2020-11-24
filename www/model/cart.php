@@ -111,6 +111,7 @@ function purchase_carts($db, $carts)
   if (validate_cart_purchase($carts) === false) {
     return false;
   }
+  $db -> beginTransaction();
   $item_id = $carts[0]['item_id'];
   foreach ($carts as $cart) {
     if (update_item_stock(
@@ -122,26 +123,13 @@ function purchase_carts($db, $carts)
     }
   }
 
-  $user_id = $carts[0]['user_id'];
-  $total_price = sum_carts($carts);
-  insert_order_history(
-    $db,
-    $user_id,
-    $total_price
-  );
+  create_history($db, $carts);
 
-  $order_id = get_order_id($db);
-
-  foreach ($carts as $cart) {
-    insert_order_datail(
-      $db,
-      $order_id,
-      $cart['item_id'],
-      $cart['price'],
-      $cart['amount']
-    );
-
-    delete_user_carts($db, $carts[0]['user_id']);
+  delete_user_carts($db, $carts[0]['user_id']);
+  if (has_error()) {
+    $db -> rollback();
+  } else {
+    $db -> commit();
   }
 }
 
