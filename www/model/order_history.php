@@ -1,4 +1,6 @@
 <?php
+require_once MODEL_PATH . 'functions.php';
+require_once MODEL_PATH . 'db.php';
 
 // DB利用
 function insert_order_history($db, $user_id, $total_price) {
@@ -49,4 +51,18 @@ function create_history($db, $carts){
     }
   }
   return true;
+}
+
+function get_order_history($db, $user_id){
+  $sql = "
+    SELECT
+      order_id,
+      order_date,
+      total_price
+    FROM
+      order_histories
+    WHERE
+      user_id = ?
+  ";
+  return fetch_all_query($db, $sql, [$user_id]);
 }
