@@ -90,3 +90,15 @@ function subtotal_detail($order_detail){
   $subtotal_price += $order_detail['price'] * $order_detail['amount'];
   return $subtotal_price;
 }
+
+function get_all_order_history($db){
+  $sql = "
+    SELECT
+      order_id,
+      order_date,
+      total_price
+    FROM
+      order_histories
+  ";
+  return fetch_all_query($db, $sql);
+}
