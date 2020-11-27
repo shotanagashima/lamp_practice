@@ -66,3 +66,27 @@ function get_order_history($db, $user_id){
   ";
   return fetch_all_query($db, $sql, [$user_id]);
 }
+
+function get_order_detail($db, $order_id){
+  $sql = "
+    SELECT
+      items.name,
+      items.price,
+      order_details.amount
+    FROM
+      order_details
+    JOIN
+      items
+    ON
+      order_details.item_id = items.item_id  
+    WHERE
+      order_details.order_id = ?
+  ";
+  return fetch_all_query($db, $sql, [$order_id]);
+}
+
+function subtotal_detail($order_detail){
+  $subtotal_price = 0;
+  $subtotal_price += $order_detail['price'] * $order_detail['amount'];
+  return $subtotal_price;
+}
