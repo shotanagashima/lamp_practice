@@ -43,8 +43,6 @@ function execute_query($db, $sql, $params = array()){
     $statement = $db->prepare($sql);
     return $statement->execute($params);
   }catch(PDOException $e){
-    var_dump($sql);
-    var_dump($params);
     set_error('更新に失敗しました。');
   }
   return false;

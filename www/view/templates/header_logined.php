@@ -17,6 +17,15 @@
             <a class="nav-link" href="<?php print(ADMIN_URL);?>">管理</a>
           </li>
         <?php } ?>
+        <?php if(is_admin($user)){ ?>
+          <li class="nav_item">
+            <a class="nav-link" href="<?php print(ADMIN_ORDER_HISTORY_URL);?>">購入履歴</a>
+          </li>
+        <?php } else { ?>  
+          <li class="nav_item">
+            <a class="nav-link" href="<?php print(ORDER_HISTORY_URL);?>">購入履歴</a>
+          </li>
+        <?php } ?>  
       </ul>
     </div>
   </nav>
