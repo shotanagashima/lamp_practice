@@ -67,7 +67,8 @@ function get_order_history($db, $user_id){
   return fetch_all_query($db, $sql, [$user_id]);
 }
 
-function get_order_detail($db, $order_id){
+function get_order_detail($db, $order_id, $user_id = null){
+  $parameters = [$order_id];
   $sql = "
     SELECT
       items.name,
@@ -82,7 +83,12 @@ function get_order_detail($db, $order_id){
     WHERE
       order_details.order_id = ?
   ";
-  return fetch_all_query($db, $sql, [$order_id]);
+  if ($user_id !== null){
+    $sql.="and exists(select * from order_histories where order_id = ? and user_id = ?)";
+    $parameters[] = $order_id;
+    $parameters[] = $user_id;
+  }
+  return fetch_all_query($db, $sql, $parameters);
 }
 
 function subtotal_detail($order_detail){

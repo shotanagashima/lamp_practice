@@ -15,10 +15,11 @@ $user = get_login_user($db);
 $order_id = get_post('order_id');
 $order_date = get_post('order_date');
 $total_price = get_post('total_price');
-
-$order_details = get_order_detail($db, $order_id);
-
-$subtotal_price = subtotal_detail($order_details);
+if (is_admin($user)) {
+  $order_details = get_order_detail($db, $order_id);
+} else {
+  $order_details = get_order_detail($db, $order_id, $user['user_id']);  
+}
 
 
 include_once VIEW_PATH . 'order_detail_view.php';
